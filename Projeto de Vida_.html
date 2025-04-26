@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto de Vida</title>
+    <style>
+        /* Estilos do Player de Áudio */
+        .audio-player {
+            margin: 1.5rem 0;
+            width: 100%;
+            background-color: var(--dark-3);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-player h4 {
+            color: var(--accent-light);
+            margin-bottom: 0.5rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .audio-player audio {
+            width: 100%;
+            filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+        }
+
+        .audio-player audio::-webkit-media-controls-panel {
+            background-color: var(--dark-2);
+        }
+
+        .image-text-container {
+            padding: 4rem 0;
+            background-color: var(--dark-2);
+            margin: 4rem 0;
+        }
+
+        .image-text-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .image-text-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-text-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .image-text-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-text-text {
+            flex: 1;
+        }
+
+        .image-text-text h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .image-text-text p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .image-text-content {
+                flex-direction: column;
+            }
+            
+            .image-text-image {
+                margin-bottom: 2rem;
+            }
+        }
+        
+        :root {
+            --dark-1: #121212;
+            --dark-2: #1e1e1e;
+            --dark-3: #2a2a2a;
+            --accent: #39769e;
+            --accent-light: #9370db;
+            --text: #e0e0e0;
+            --text-secondary: #b0b0b0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        
+        body {
+            background-color: var(--dark-1);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--dark-2);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-family: Georgia, serif;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                      url('https://cdn.discordapp.com/attachments/1205250246171697183/1364725958635946065/outer-wilds-4k.png?ex=680ab797&is=68096617&hm=03fae58cc22c36c18f903452269e7bd96318e37bf991b65bde575dc0b9c57a39&') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-family: Georgia, serif;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .container h2 {
+             margin-bottom: 2rem;
+             font-family: 'Times New Roman', serif;
+             border-bottom: 2px solid var(--accent);
+             padding-bottom: 0.5rem;
+        }
+        
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .post-card {
+            background-color: var(--dark-2);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .post-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .post-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .post-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .post-content-summary {
+             flex-grow: 1;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+        
+        .read-more, .read-less {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .read-more:hover, .read-less:hover {
+            text-decoration: underline;
+        }
+
+        .post-expanded-content {
+            padding-top: 1rem;
+            border-top: 1px solid var(--dark-3);
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .post-expanded-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-top: 1rem;
+            display: block;
+        }
+        
+        /* Estilos para a linha do tempo */
+        .timeline-container {
+            max-width: 800px;
+            margin: 5rem auto;
+            position: relative;
+            padding: 0 2rem;
+        }
+        
+        .timeline-container h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--accent);
+            font-size: 2rem;
+        }
+        
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--accent);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            padding-right: calc(50% + 30px);
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            padding-left: calc(50% + 30px);
+            text-align: left;
+        }
+        
+        .timeline-date {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-description {
+            background-color: var(--dark-2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-description img {
+             max-width: 100%;
+             height: auto;
+             border-radius: 4px;
+             margin-top: 1rem;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-description::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 100%;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid var(--dark-2);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-description::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 100%;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 15px solid var(--dark-2);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent-light);
+            border: 3px solid var(--dark-1);
+            z-index: 3;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: calc(50% - 10px);
+            transform: translateX(50%);
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: calc(50% - 10px);
+            transform: translateX(-50%);
+        }
+        
+        /* New articles section */
+        .more-articles {
+            margin: 5rem auto;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+        
+        /* Image Gallery Section */
+        .image-gallery {
+            margin: 5rem auto;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 1/1;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Video Container */
+        .video-container {
+            margin: 5rem auto;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        footer {
+            background-color: var(--dark-3);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto 2rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+            text-align: left;
+        }
+        
+        .footer-column h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-2);
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            /* Responsivo para linha do tempo */
+            .timeline-container::before {
+                left: 20px;
+                transform: translateX(0);
+            }
+            
+            .timeline-item {
+                padding-left: 55px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                 padding-left: 55px !important;
+                 padding-right: 0 !important;
+                 text-align: left !important;
+            }
+
+            .timeline-item::after {
+                left: 10px !important;
+                transform: translateX(0) !important;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-description::before,
+            .timeline-item:nth-child(odd) .timeline-description::before {
+                left: auto;
+                right: 100%;
+                border-right: 15px solid var(--dark-2);
+                border-left: none;
+                margin-right: 15px;
+            }
+
+            .footer-content {
+                text-align: center;
+            }
+            .footer-column {
+                 margin-bottom: 1.5rem;
+            }
+            
+            /* Responsive gallery */
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Efeito de onda ao clicar */
+        .nav-links a, .btn, .footer-column a {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        /* Keyframes for ripple effect */
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Nova seção "Quem é Hélio" */
+        .who-is-section {
+            margin: 5rem auto;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+
+        /* Seção adicional de imagem e texto */
+        .additional-section {
+            margin: 5rem auto;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Projeto de Vida</div>
+            <div class="nav-links">
+                <a href="#">Início</a>
+                <a href="#">Artigos</a>
+                <a href="#">Sobre</a>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>Sou Hélio, tenho 14 anos.</h1>
+        <p>e acredito que nossos hábitos e gostos pessoais dizem muito sobre quem somos — eles constroem nossa identidade.</p>
+        <a href="#latest-articles" class="btn">Comece a Ler</a>
+    </section>
+
+    <!-- Nova seção "Quem é Hélio" -->
+    <section class="who-is-section">
+        <div class="image-text-container">
+            <div class="container">
+                <div class="image-text-content">
+                    <div class="image-text-image">
+                        <img src="https://cdn.discordapp.com/attachments/1205250246171697183/1364750985343270963/WhatsApp_Image_2025-04-23_at_20.45.20.jpeg?ex=680cc926&is=680b77a6&hm=989b587c1233dcf1e9e4535081e6c000aa13ed8437e0fba2db7d2bc6d0fd8071&" alt="Hélio">
+                    </div>
+                    <div class="image-text-text">
+                        <h2>Quem é Hélio?</h2>
+                        <p>Sou Hélio, tenho 14 anos e estudo no SESI. Tenho incertezas sinceramente, mas considero que nossos hábitos formam nossa
+                            identidade. Logo após a roda de conversa da Isabella refleti muito sobre isto, como as minhas prefêrencias moldam meu ser
+                            (explorarei mais sobre minhas preferências no tópico posterior). Afinal sou alguém que me apoio muito em minhas virtudes
+                            considero vicios extremamente maus "Não explique sua filosofia. Incorpore-a." — Epicteto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção adicional de imagem e texto -->
+    <section class="additional-section">
+        <div class="image-text-container">
+            <div class="container">
+                <div class="image-text-content">
+                    <div class="image-text-text">
+                        <h2>IKIGAI e o primeiro encontro</h2>
+                        <p> Em uma das primeiras segunda - feira após a inaugaração do SESI. Reunimos a sala em uma roda
+                            e conversamos sobre nossas preferências e assim como na entrevista de emprego falamos sobre nossos
+                            defeitos e qualidades. Portanto este encontro contribuiu muito para a construção do IKIGAI, nesta dinâmica
+                            trocamos nossas caractéristicas assim como um pouquinho de nossas referencias
+                            sem muitas reflexões, mas acochegante. A Professora Isabella resaltou a importância das suas 
+                           preferências para construção da sua identidade, interpreto isto como uma virtude
+                           e querendo ou não estes aspectos nos definem muito.
+                        </p>
+                    </div>
+                    <div class="image-text-image">
+                        <img src="https://cdn.discordapp.com/attachments/1205250246171697183/1365479711052140635/Panfleto_proposito_e_carreira_metodo_ikigai_moderno_preto_e_branco1.png?ex=680d7594&is=680c2414&hm=fd5691154355a8338eb3728312cc2a5156bb3e238009b4008fa999566d80236a&" alt="IKIGAI">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <main class="container">
+        <h2 id="latest-articles">Encontros</h2>
+        <div class="posts-grid">
+            <article class="post-card">
+                <div class="post-image" style="background-image: url('https://media.discordapp.net/attachments/1205250246171697183/1364724090627166239/WhatsApp_Image_2025-04-22_at_14.07.03.jpeg?ex=680d58da&is=680c075a&hm=000a2fda8720fbe89c28ca33105db4019446e65920608d5a109c3639c2cf3844&=&format=webp&width=725&height=544');"></div>
+                <div class="post-content">
+                    <h3>Filme Soul</h3>
+                    <div class="post-content-summary">
+                         <p>No inicio de abril, as 3 turmas se encontraram com os pais para assistir o filme Soul no Via Shopping.</p>
+                    </div>
+                    <div class="post-expanded-content">
+                        <p>Portanto tive uma peculiar reflexão sobre o filme, o sentido da vida, será as conquistas ou os pequenos momentos do cotidiano? O Que Realmente Importa? Propósito ou Apenas Viver? Contudo um dos grandes temas do tema é o proposito, os momentos entre Joe e 22, critica a cobrança da sociedade em encontrar um, mostrando como isto pode sufocar a espontaneidade da simplicidade de viver, como saborear a fatia de pizza e sentir o vento assim questiona a ideia do caminho perfeito. Logo outro tema que devo ressaltar em meu pensamento é a jornado de auto descoberta compreender a si mesmo afirma oque realmente importa é viver plenamente.</p>
+                        <img src="https://media.discordapp.net/attachments/1205250246171697183/1364724012269179021/joe-gardner-e-o-protagonista-de-soul-da-pixar-1608590322547_v2_600x800.jpg.webp?ex=680d58c7&is=680c0747&hm=f8689fa27bdcdeabdbd5640f89c85d21e80f1cd805fe6cccacd7c9e356480c49&=&format=webp&width=408&height=544" alt="Jon">
+                         <a href="#" class="read-less">Ler menos</a>
+                    </div>
+                    <div class="post-meta">
+                        <span>4 de Abril , 2025</span>
+                        <a href="#" class="read-more">Ler mais</a>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="post-card">
+                <div class="post-image" style="background-image: url('https://cdn.discordapp.com/attachments/1205250246171697183/1364730367327731833/image.png?ex=680abbb3&is=68096a33&hm=895fa606956a480ecb97960cec4f4e37bc12286875d346232b8a728d9598c687&');"></div>
+                <div class="post-content">
+                    <h3>Roda de Conversa do filme soul</h3>
+                     <div class="post-content-summary">
+                         <p>A roda de conversa que aconteceu na terça feira depois do final de semana do cinema...</p>
+                    </div>
+                    <div class="post-expanded-content">
+                         <p>reunimos os alunos e pais para refletirem sobre os temas abordados no filme. Portanto eu e minha mãe dentro da "dinâmica dos objetos" referentes ao filme, nosso item foi a pessoa da barbearia que tenta zoar o Joe (enquanto a 22 está no corpo dele), levantei o questionamento da atenção e o "Reconhecimento real não vem de manter uma pose, mas de ser visto de verdade.", este personagem mostra que é alguém que anseia por este tipo de conexão, no momento falei sobre como a repreensão é a pior língua a ser falada e que as vezes até pode impedir outras pessoas a seguirem seus próprios caminhos.</p>
+                         <img src="https://media.discordapp.net/attachments/1205250246171697183/1364724012713902193/WhatsApp_Image_2025-04-22_at_14.07.031.jpeg?ex=680d58c7&is=680c0747&hm=3733eb171701c2796c2cc099609e0737a75dd979c2957ec1e48d326964e585d7&=&format=webp&width=725&height=544" alt="Paul">
+                         <a href="#" class="read-less">Ler menos</a>
+                    </div>
+                    <div class="post-meta">
+                        <span>7 de Abril , 2025</span>
+                        <a href="#" class="read-more">Ler mais</a>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="post-card">
+                <div class="post-image" style="background-image: url('https://cdn.discordapp.com/attachments/1205250246171697183/1364731903109759127/Sem_titulo.jpeg?ex=680d6021&is=680c0ea1&hm=32f07aa337d32e5cbc0cec4d8b87a642628ce45624a4b3f01eff41edfadceefe&');"></div>
+                <div class="post-content">
+                    <h3>Palestra do Apresentador da itatiaia</h3>
+                     <div class="post-content-summary">
+                         <p>Terça-Feira antes do feriado de 5 dias...</p>
+                     </div>
+                    <div class="post-expanded-content">
+                         <p>um apresentador da Itatiaia palestrou sobre sua jornada de vida até o sucesso e suas realizações de longo prazo. Neste encontro refleti sobre algumas ideias e virtudes como "Erra Todo mundo erra, mas isto é sobre como você supera este erro.", assim como seu comprometimento e paixão o motivaram neste processo. Este que é um caminho árduor e díficil com uma rotina muito apertada, mesmo assim nunca desistiu, na sua posição atual, ele provocou a reflexão sobre o qual dificil é se manter como apresentador. Seu percurso mostrou que o verdadeiro sucesso não está apenas em conquistar um lugar de destaque, mas em aprender com os erros, manter-se firme com paixão e propósito, e seguir em frente mesmo quando o caminho parece mais difícil.</p>
+                        <img src="https://media.discordapp.net/attachments/1205250246171697183/1364724013011828836/WhatsApp_Image_2025-04-22_at_14.07.032.jpeg?ex=680d58c8&is=680c0748&hm=07cf21fb8f26595a27accbfaa989ebec8beb4eb51c0a9e3d8dd5c3df9f80acf7&=&format=webp&width=725&height=544" alt="Imagem sobre Segurança Digital">
+                         <a href="#" class="read-less">Ler menos</a>
+                    </div>
+                    <div class="post-meta">
+                        <span>15 de Abril, 2025</span>
+                        <a href="#" class="read-more">Ler mais</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <section class="timeline-container">
+            <h2>Minha Jornada de Vida</h2>
+            <div class="timeline-item">
+                <span class="timeline-date">2010</span>
+                <div class="timeline-description">
+                    <p>Nasci. Tive o nome heradado do meu avó, está foto mostra ele me carregando. na época ele andava o Cardoso inteiro comigo no colo me apresentando</p>
+                    <img src="https://source.unsplash.com/random/400x200/?reflection,purpose" alt="Reflexão sobre propósito">
+                </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">2019-2021</span>
+                 <div class="timeline-description">
+                     <p>Foto tirada na Pandemia, fiquei boa parte deste tempo no ambiente virtual e descobri uma paixão.</p>
+                    <img src="https://cdn.discordapp.com/attachments/1205250246171697183/1364733317324345344/WhatsApp_Image_2025-04-23_at_16.48.24.jpeg?ex=680d6172&is=680c0ff2&hm=24ba72f067580cc8cac43f338c961a71d87d7dfae12fd4b33f121c24baa57ece&" alt="Tecnologia e Leitura">
+                 </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">2022</span>
+                 <div class="timeline-description">
+                     <p>Voltei para escola, continuando meu fundamental e voltei a ter interações sociais depois de muito tempo.</p>
+                     <img src="https://media.discordapp.net/attachments/1205250246171697183/1364724013334532227/WhatsApp_Image_2025-04-22_at_19.33.49.jpeg?ex=680d58c8&is=680c0748&hm=e7f83ce717c628cc8c07cf100e98c7c834546275a046fb18ee9a42130f90866c&=&format=webp&width=306&height=544" alt="Projetos Criativos">
+                 </div>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-date">2024 - Presente</span>
+                 <div class="timeline-description">
+                     <p>Carnaval de 2024 que passei com meu tio, neste ano evolui muito nos estudos (participando efetivamente de olimpieadas e as atividades escolares), leitura integral e começei a práticar atividades físicas e estudar
+                        programação.</p>
+                     <img src="https://cdn.discordapp.com/attachments/1205250246171697183/1364724013691175034/WhatsApp_Image_2025-04-22_at_19.39.10.jpeg?ex=680ab5c8&is=68096448&hm=0f1dd9f58e40c2dcb0abe646ecb4f32b37983559d522410f2e98d4d208808e24&" alt="Explorando o Futuro">
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Gallery Section -->
+        <section class="image-gallery">
+            <h2>Galeria de Imagens</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://media.discordapp.net/attachments/1205250246171697183/1364724014651805736/WhatsApp_Image_2025-04-22_at_19.46.55.jpeg?ex=680d58c8&is=680c0748&hm=3538fba64c78f4a90ab67464413bc93ea63433a34eb39e81f7280f7a24cd67f8&=&format=webp&width=408&height=544" alt="Carnaval de 2024 que passei com meu tio">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://media.discordapp.net/attachments/1205250246171697183/1364724091013038080/WhatsApp_Image_2025-04-22_at_19.46.52.jpeg?ex=680d58da&is=680c075a&hm=bef649eddca7f44644c35c959676f6472d653fb60afffdf8b0c96c1c3547013c&=&format=webp&width=725&height=544" alt="Indo à escola (antiga)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://cdn.discordapp.com/attachments/1205250246171697183/1364735288605147237/Sem_titulo.jpeg?ex=680d6348&is=680c11c8&hm=8a62901706c76a5879c41ca8709a691c9c2265f8331c26abe8d3d1e31dcc06ce&" alt="Festa de aniversário antes da minha entrada à EMEI aonde fiquei 4 anos.">
+                </div>
+            </div>
+        </section>
+
+        <section class="more-articles">
+            <h2>Quem é Hélio na vida das pessoas</h2>
+            <div class="posts-grid">
+                <article class="post-card">
+                    <div class="post-image" style="background-image: url('https://cdn.discordapp.com/attachments/1215412929470537738/1364747239435665448/image.png?ex=680acb69&is=680979e9&hm=b502cf8a692153a1ff5038cb101076b6cc9052a713ec9abfd6299b380cc32dc7&');"></div>
+                    <div class="post-content">
+                        <h3>José Victor</h3>
+                        <div class="post-content-summary">
+                            <p></p>
+                        </div>
+                        <div class="post-expanded-content">
+                            <p> José Victor é alguém bem importante para mim, um bom amigo que entende quando e sério e quando não é, 
+                                me apoia na maioria das coisas, me ajudou quando mais precisei e hoje sinceramente é um dos meus amigos
+                                mais preciosos.
+                            </p>
+                            <img src="https://source.unsplash.com/random/600x300/?philosophy,technology" alt="Filosofia da Tecnologia">
+                            <a href="#" class="read-less">Ler menos</a>
+                        </div>
+                        <div class="audio-player">
+                            <h4>Quem é Hélio na vida do José</h4>
+                            <audio controls>
+                                <source src="https://cdn.discordapp.com/attachments/1205250246171697183/1364740981211140177/WhatsApp-Ptt-2025-04-23-at-17.27.53.mp3?ex=680ac595&is=68097415&hm=39cb007f96bf55c3431882ae11254983d68a9e4d1e7974281c41474180f406d9&" type="audio/mpeg">
+                                Seu navegador não suporta o elemento de áudio.
+                            </audio>
+                        </div>
+                        <div class="post-meta">
+                            <span></span>
+                            <a href="#" class="read-more">Ler mais</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-image" style="background-image: url('https://cdn.discordapp.com/attachments/1123251567244611746/1364746222686175352/image.png?ex=680aca77&is=680978f7&hm=996da015102ef53c0cb746bc6339342e517dc3cf826f4a6d852470cb91577867&');"></div>
+                    <div class="post-content">
+                        <h3>Caio Henrique</h3>
+                        <div class="post-content-summary">
+                            <p>Caio é alguém simpatico, e foi uma otima experiência ter convivido com ele em 2023
+                               sinceramente acho que seja uma das pessoas mais gostáveis que já conheci.
+                            </p>
+                        </div>
+                        <div class="post-expanded-content">
+                            <p></p>
+                            <img src="https://source.unsplash.com/random/600x300/?quantum,physics" alt="Ciência Avançada">
+                            <a href="#" class="read-less">Ler menos</a>
+                        </div>
+                        <div class="audio-player">
+                            <h4>Quem é Hélio na vida do Caio</h4>
+                            <audio controls>
+                                <source src="https://cdn.discordapp.com/attachments/1205250246171697183/1364740980892241980/WhatsApp-Audio-2025-04-22-at-21.53.11.mp3?ex=680ac595&is=68097415&hm=48d5659840d68e14c0b65b0d2efd762ddfb3f26bf537f2f589f7b1de70a84aa9&" type="audio/mpeg">
+                                Seu navegador não suporta o elemento de áudio.
+                            </audio>
+                        </div>
+                        <div class="post-meta">
+                            <span>18 de Setembro, 2023</span>
+                            <a href="#" class="read-more">Ler mais</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-image" style="background-image: url('https://cdn.discordapp.com/attachments/1123251567244611746/1231001170324230204/20240419_185721.jpg?ex=680d572d&is=680c05ad&hm=6ad915a51254d78a2a6c1cc7e1ed2878823328e9d5e7b6e51c26abe06374e2e2&');"></div>
+                    <div class="post-content">
+                        <h3>Carlos Henrique</h3>
+                        <div class="post-content-summary">
+                            <p> Assim como José, Carlos sempre esteve ao meu lado por eras, apesar de morar muito distante
+                                tivemos muito convivio por eras inclusive na pandemia,  ambos nós temos interesses
+                                na tecnologia, um verdadeiro companheiro e uma das pessoas mais carismáticas que conheço.
+                            </p>
+                        </div>
+                        <div class="post-expanded-content">
+                            <p>Um estudo comparativo das civilizações egípcia, mesopotâmica e grega, analisando seus sistemas políticos, avanços tecnológicos e como esses fatores influenciaram seu desenvolvimento e eventual declínio.</p>
+                            <img src="" alt="História Antiga">
+                            <a href="#" class="read-less">Ler menos</a>
+                        </div>
+                        <div class="audio-player">
+                            <h4>Quem é Hélio na vida do Carlos</h4>
+                            <audio controls>
+                                <source src="audio/artigo1.mp3" type="audio/mpeg">
+                                Seu navegador não suporta o elemento de áudio.
+                            </audio>
+                        </div>
+                        <div class="post-meta">
+                            <span>12 de Setembro, 2023</span>
+                            <a href="#" class="read-more">Ler mais</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Projeto de Vida</h3>
+                <p>Autoconhecimento, projeto interdisciplinar SESI 2025</p>
+            </div>
+            <div class="footer-column">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Artigos</a></li>
+                    <li><a href="#">Sobre</a></li>
+                </ul>
+            </div>
+             <div class="footer-column">
+                <h3>Redes Sociais</h3>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Hélio. Todos os direitos reservados.
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efeito de digitação no título
+            const heroTitle = document.querySelector('.hero h1');
+            if (heroTitle) {
+                const originalText = heroTitle.textContent;
+                heroTitle.textContent = '';
+                let i = 0;
+                const typingEffect = setInterval(() => {
+                    if (i < originalText.length) {
+                        heroTitle.textContent += originalText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typingEffect);
+                    }
+                }, 50);
+            }
+            
+            // Efeito de revelação suave dos cards
+            const cards = document.querySelectorAll('.post-card, .gallery-item');
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        cardObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                cardObserver.observe(card);
+            });
+            
+            // Efeito de revelação para a linha do tempo
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        timelineObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            timelineItems.forEach(item => {
+                timelineObserver.observe(item);
+            });
+
+            // Funcionalidade de Expansão dos Artigos
+            const postGrids = document.querySelectorAll('.posts-grid');
+            postGrids.forEach(postGrid => {
+                postGrid.addEventListener('click', function(event) {
+                    const target = event.target;
+
+                    // Handle "Ler mais" click
+                    if (target.classList.contains('read-more')) {
+                        event.preventDefault();
+                        const postCard = target.closest('.post-card');
+                        if (postCard) {
+                            const expandedContent = postCard.querySelector('.post-expanded-content');
+                            const readMoreLink = postCard.querySelector('.read-more');
+                            
+                            if (expandedContent) {
+                                expandedContent.style.display = 'block';
+                            }
+                            if (readMoreLink) {
+                                readMoreLink.style.display = 'none';
+                            }
+                        }
+                    }
+
+                    // Handle "Ler menos" click
+                    if (target.classList.contains('read-less')) {
+                        event.preventDefault();
+                        const postCard = target.closest('.post-card');
+                        if (postCard) {
+                            const expandedContent = postCard.querySelector('.post-expanded-content');
+                            const readMoreLink = postCard.querySelector('.read-more');
+                            
+                            if (expandedContent) {
+                                expandedContent.style.display = 'none';
+                            }
+                            if (readMoreLink) {
+                                readMoreLink.style.display = 'inline';
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Efeito de onda para todos os links clicáveis
+            const clickableElements = document.querySelectorAll('.nav-links a, .btn, .footer-column a');
+            clickableElements.forEach(element => {
+                // Adiciona efeito de onda ao clicar
+                element.addEventListener('click', function(e) {
+                    // Cria elemento de onda
+                    const wave = document.createElement('span');
+                    wave.style.position = 'absolute';
+                    wave.style.borderRadius = '50%';
+                    wave.style.backgroundColor = 'rgba(106, 90, 205, 0.3)';
+                    wave.style.transform = 'scale(0)';
+                    wave.style.animation = 'ripple 0.6s linear';
+                    wave.style.pointerEvents = 'none';
+                    
+                    // Posiciona a onda
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height) * 2;
+                    wave.style.width = wave.style.height = size + 'px';
+                    wave.style.left = e.clientX - rect.left - size/2 + 'px';
+                    wave.style.top = e.clientY - rect.top - size/2 + 'px';
+                    
+                    this.appendChild(wave);
+                    
+                    // Remove após a animação
+                    setTimeout(() => {
+                        wave.remove();
+                    }, 600);
+                    
+                    // Efeito de pressão
+                    this.style.transform = 'translateY(2px)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+                
+                // Efeito hover mais suave
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // Efeito especial para o botão principal
+            const mainBtn = document.querySelector('.hero .btn');
+            if (mainBtn) {
+                mainBtn.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 5px 15px rgba(106, 90, 205, 0.4)';
+                });
+                
+                mainBtn.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
